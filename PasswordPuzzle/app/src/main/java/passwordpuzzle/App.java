@@ -5,11 +5,6 @@ package passwordpuzzle;
 
 import java.util.Scanner;
 
-
-
-
-
-
 public class App {
     public String getGreeting() {
         return "Hello World!";
@@ -22,7 +17,6 @@ public class App {
         while(invalid_password && try_again){
             System.out.println("Enter your password: "); 
             String guess = scanner.nextLine();
-            System.out.println(guess.contains("10♥J♥Q♥K♥A♥")); 
             invalid_password = checkWord_bool(guess); //check to see if word is valid 
             if(invalid_password){
                 System.out.println(checkWord_str(guess)); //say why its invalid 
@@ -38,9 +32,11 @@ public class App {
 
         }
         scanner.close(); 
-        if(invalid_password == false){
-            System.out.println("Password Accepted");
-        }else{
+        if(try_again == true){
+            System.out.println("Password accepted");
+        }
+        if(invalid_password == true){
+            
             System.out.println("Thanks for Trying!");
         }
 
@@ -61,22 +57,30 @@ public class App {
         }else if(guess.contains(" ")){
             return true;
         }
-        else if(rule4(guess) !=17){
+        else if(rule4(guess) !=19){
             return true; 
         }else if(guess.charAt(guess.length()-1)!='A'){
             return true;
-         } else if(guess.length()>17){
-            return true;
+      //   } else if(guess.length()>17){
+         //   System.out.println("8");
+          //  return true;
          } else if((guess.contains("State Farm") ||
                 guess.contains("Liberty Mutual") ||
                 guess.contains("IBM"))==false){
                     return true;
         }else if(guess.replaceAll("[a-zA-Z0-9]", "").length()!=6){
             return true; 
-        }else if(!guess.contains("10♥J♥Q♥K♥A♥")){
+      //  }else if(!guess.contains("10♥J♥Q♥K♥A♥")){
+     //       return true; 
+        }else if(guess.contains("Bb4Nd3")==false){
             return true; 
-        }
+        } else if((guess.contains("UnitedStates") || guess.contains("GreatBritain") || guess.contains("SovietUnion"))==false){
+            return true; 
+        } else if((guess.contains("$13.80") || guess.contains("$7.25"))==false){
+            return true; 
+        } else{
 return false;
+        }
     }
 
 
@@ -94,8 +98,8 @@ return false;
         }else if(guess.contains(" ")){
             return "Rule 5: Password can't contain a space"; 
         }
-        else if(rule4(guess) !=17){
-            return "Rule 6: Sum of the digits must add up to 17";
+        else if(rule4(guess) !=19){
+            return "Rule 6: Sum of the digits must add up to 19";
         } else if(guess.charAt(guess.length()-1)!='A'){
             return "Rule 7: Password must start and end with the same character"; 
         }else if((guess.contains("State Farm") ||
@@ -104,8 +108,14 @@ return false;
                 return "Rule 8: Password must contain the name of one of our sponsors \n sponsors include:State Farm, Liberty Mutual, IBM "; 
         }else if(guess.replaceAll("[a-zA-Z0-9]", "").length()!=6){
             return "Rule 9: Password must contain 6 special characters"; 
-    } else if(guess.contains("10♥J♥Q♥K♥A♥")==false){
-        return "Rule 10: Password must contain a royal flush of hearts written in the format: \n number, suit, number suit";
+   // } else if(!guess.contains("10♥J♥Q♥K♥A♥")){
+       // return "Rule 10: Password must contain a royal flush of hearts written in the format: \n number, suit, number suit";
+    } else if (!guess.contains("Bb4Nd3")){
+        return "Rule 11: Password must contain the 43rd move of game 1 of the 2023 world chess championship \n in algebraic notation (altered in compliance of rule 5)"; 
+    }else if((guess.contains("UnitedStates") || guess.contains("GreatBritain") || guess.contains("SovietUnion"))==false){
+        return "Rule 12: Password must contain one of the members of the allied powers"; 
+    } else if((guess.contains("$13.80") || guess.contains("$7.25"))==false){
+        return "Rule 13: Password must contain the federal minimum wage or the minumum wage in Maine (as of 2023)"; 
     }
         
         
@@ -127,6 +137,7 @@ return false;
         
     }
 }
+
     return sum;
 }
 }
